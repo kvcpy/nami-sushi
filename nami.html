@@ -954,19 +954,135 @@
     /* ─────────────────────────────────────────
        §15  RESPONSIVE
     ───────────────────────────────────────── */
+    /* ═══════════════════════════════════════
+       RESPONSIVE — TABLET (≤1024px)
+    ═══════════════════════════════════════ */
     @media (max-width: 1024px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-right { min-height: 50vw; }
+      /* Hero — zdjęcie jako tło, tekst na wierzchu */
+      #hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+        min-height: 100svh;
+        position: relative;
+      }
+      /* Zdjęcie hero jako pełnoekranowe tło */
+      .hero-right {
+        position: absolute !important;
+        inset: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        z-index: 0;
+        opacity: 1 !important;
+        animation: none !important;
+      }
+      .hero-img-placeholder {
+        position: absolute; inset: 0;
+      }
+      /* Ciemna nakładka żeby tekst był czytelny */
+      .hero-left {
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(
+          to right,
+          rgba(10,10,10,0.92) 0%,
+          rgba(10,10,10,0.75) 70%,
+          rgba(10,10,10,0.3) 100%
+        );
+        min-height: auto;
+        padding-top: calc(var(--nav-h) + 3rem);
+        padding-bottom: 3.5rem;
+        grid-row: 1;
+      }
+      .hero-badge { display: none; }
+
+      /* Historia */
       #historia { grid-template-columns: 1fr; }
       .storia-visual { min-height: 400px; }
+
+      /* Feature wave */
       .feature-wave-inner { grid-template-columns: 1fr; }
       .feature-wave-right { min-height: 260px; }
       .feature-wave-mask { display: none; }
+
+      /* Rezerwacja */
       #rezerwacja { grid-template-columns: 1fr; }
+
+      /* Menu — sidebar poziomo (tabs nad contentem) */
+      .menu-split {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      }
+      .menu-sidebar {
+        position: static;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+        padding: 1.5rem clamp(1rem, 4vw, 2rem);
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        overflow-x: auto;
+        overflow-y: visible;
+        scrollbar-width: none;
+      }
+      .menu-sidebar::-webkit-scrollbar { display: none; }
+      .menu-sidebar-logo,
+      .menu-sidebar-sub,
+      .menu-sidebar-bottom { display: none; }
+      .menu-vtabs {
+        flex-direction: row;
+        gap: 0.25rem;
+        width: 100%;
+      }
+      .menu-vtab-btn {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        white-space: nowrap;
+      }
+      .menu-vtab-btn::before { display: none; }
+      .menu-vtab-btn::after { display: none; }
+      .menu-vtab-num { font-size: 0.6rem; margin-bottom: 0.15rem; }
+      .menu-vtab-label { font-size: 0.75rem; letter-spacing: 0.05em; }
+      .menu-vtab-jp { display: none; }
+      .menu-vtab-btn[aria-selected="true"] {
+        background: rgba(200,16,46,0.15);
+        border-radius: 6px;
+      }
+      .menu-content {
+        padding: clamp(1.5rem, 4vw, 3rem);
+      }
     }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE — MOBILE (≤768px)
+    ═══════════════════════════════════════ */
     @media (max-width: 768px) {
+      html, body { overflow-x: hidden; }
+
+      /* Navbar */
       .nav-links, .nav-reserve { display: none; }
       #menu-btn { display: flex; }
+
+      /* Hero */
+      .hero-jp { font-size: 0.7rem; }
+      .hero-sub { font-size: 0.875rem; max-width: 100%; }
+      .hero-strip {
+        flex-wrap: wrap;
+        gap: 0;
+      }
+      .hero-stat {
+        flex: 1 1 50%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding: 1rem 1.25rem;
+      }
+      .hero-stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
+      .hero-stat:last-child { border-bottom: none; }
+
+      /* Galeria */
       .galeria-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 200px 200px 200px;
@@ -976,16 +1092,53 @@
       .g-item-3 { grid-column: 1/3; grid-row: 2/3; }
       .g-item-4 { grid-column: 1/2; grid-row: 3/4; }
       .g-item-5 { grid-column: 2/3; grid-row: 3/4; }
-      .feature-stat-row { gap: 2rem; }
+
+      /* Feature stats */
+      .feature-stat-row { gap: 1.5rem; flex-wrap: wrap; }
+
+      /* Formularz */
       .field-row { grid-template-columns: 1fr; gap: 0; }
-      footer { flex-direction: column; align-items: flex-start; }
+
+      /* Footer */
+      footer { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+
+      /* Menu items — większe touch targets */
+      .menu-item { padding: 1.1rem 0; }
+
+      /* Historia details */
+      .storia-details { grid-template-columns: 1fr; }
     }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE — SMALL MOBILE (≤480px)
+    ═══════════════════════════════════════ */
     @media (max-width: 480px) {
-      .hero-cta-row { flex-direction: column; }
+      /* Hero CTA */
+      .hero-cta-row { flex-direction: column; gap: 0.75rem; }
       .btn-primary, .btn-outline { width: 100%; justify-content: center; }
-      .hero-strip { flex-direction: column; }
-      .hero-stat { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); }
-      .hero-stat:last-child { border-bottom: none; }
+
+      /* Hero right image — trochę wyższy na małym ekranie */
+      .hero-right { height: 72vw; max-height: 360px; }
+
+      /* Section padding */
+      .section-pad { padding: 4rem 0; }
+
+      /* Galeria — jedna kolumna na bardzo małych */
+      .galeria-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 220px);
+      }
+      .g-item-1, .g-item-2, .g-item-3,
+      .g-item-4, .g-item-5 {
+        grid-column: 1/2;
+        grid-row: auto;
+      }
+
+      /* Menu tabs — mniejszy tekst */
+      .menu-vtab-label { font-size: 0.7rem; }
+
+      /* Rezerwacja padding */
+      #rezerwacja .reza-form-side { padding: 2rem 1.25rem; }
     }
 
     /* ─────────────────────────────────────────
